@@ -46,4 +46,6 @@ module Sprockets
         string.gsub(/$(.)/m, "\\1  ").strip
       end
   end
+
+  register_engine '.module', CommonJS
 end
