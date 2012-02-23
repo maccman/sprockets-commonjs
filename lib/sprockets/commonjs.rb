@@ -24,7 +24,7 @@ module Sprockets
       scope.require_asset(COMMONJS_PATH)
 
       requires = Holmes.parse(data)
-      raise 'Dynamic require calls' if requires['expressions'].any?
+      warn 'Dynamic require calls' if requires['expressions'].any?
 
       requires['strings'].each do |dependency|
         scope.require_asset(dependency)
