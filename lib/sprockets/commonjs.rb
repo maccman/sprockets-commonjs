@@ -4,8 +4,6 @@ require 'holmes'
 
 module Sprockets
   class CommonJS < Tilt::Template
-    COMMONJS_PATH = File.expand_path('../../../assets/javascripts/commonjs.js', __FILE__)
-
     def self.default_mime_type
       'application/javascript'
     end
@@ -21,7 +19,7 @@ module Sprockets
     attr_reader :namespace
 
     def evaluate(scope, locals, &block)
-      scope.require_asset(COMMONJS_PATH)
+      scope.require_asset('commonjs.js')
 
       requires = Holmes.parse(data)
       warn 'Dynamic require calls' if requires['expressions'].any?
