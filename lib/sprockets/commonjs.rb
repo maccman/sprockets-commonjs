@@ -1,12 +1,9 @@
 require 'sprockets'
 require 'tilt'
-require 'holmes'
 
 module Sprockets
   class CommonJS < Tilt::Template
-    def self.default_mime_type
-      'application/javascript'
-    end
+    self.default_mime_type = 'application/javascript'
 
     def self.default_namespace
       'this.require'
@@ -19,22 +16,11 @@ module Sprockets
     attr_reader :namespace
 
     def evaluate(scope, locals, &block)
-      scope.require_asset('commonjs.js')
-
-      requires = Holmes.parse(data)
-      warn 'Dynamic require calls' if requires['expressions'].any?
-
-      requires['strings'].each do |dependency|
-        scope.require_asset(dependency)
-      end
-
       <<-JS
 (function() {
-  #{namespace} || (#{namespace} = {});
-  #{namespace}.modules || (#{namespace}.modules = {});
-  #{namespace}.modules[#{scope.logical_path.inspect}] = function(exports, require, modules){
+  #{namespace}.define({#{scope.logical_path.inspect}: function(exports, require, module){
     #{indent(data)}
-  };
+  }});
 }).call(this);
       JS
     end
