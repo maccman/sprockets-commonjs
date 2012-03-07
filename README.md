@@ -19,7 +19,7 @@ This library adds CommonJS support to Sprockets, so it can wrap up JavaScript fi
 
 Sprockets will then wrap up the JS library when it's requested, with the following:
 
-    require.define(function(exports, require, module){ /* Your library */ });
+    require.define({'library/name': function(exports, require, module){ /* Your library */ }});
     
 `require.define()` is defined inside `commonjs.js`, which you'll need to include in the page before any modules are loaded.
 
