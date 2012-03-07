@@ -17,19 +17,14 @@ module Sprockets
     attr_reader :namespace
 
     def evaluate(scope, locals, &block)
-      <<-JS
-(function() {
-  #{namespace}.define({#{scope.logical_path.inspect}: function(exports, require, module){
-    #{indent(data)}
-  }});
-}).call(this);
-      JS
+      path = scope.logical_path.inspect
+      code = ''
+      code << "#{namespace}.define({#{path}:"
+      code << 'function(exports, require, module){'
+      code << data
+      code << ';}});'
+      code
     end
-
-    private
-      def indent(string)
-        string.gsub(/$(.)/m, "\\1  ").strip
-      end
   end
 
   register_engine '.module', CommonJS

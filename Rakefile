@@ -1,6 +1,7 @@
 require 'bundler/gem_tasks'
 require 'sprockets'
 require 'sprockets/commonjs'
+require 'rake/testtask'
 
 task :example do
   env = Sprockets::Environment.new
@@ -9,4 +10,12 @@ task :example do
   File.open(File.expand_path('../examples/example.js', __FILE__), 'w+') do |f|
     f.write env['application.js'].to_s
   end
+end
+
+
+task :default => :test
+
+Rake::TestTask.new do |t|
+  t.libs << "test"
+  t.warning = true
 end
