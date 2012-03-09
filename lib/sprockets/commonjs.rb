@@ -3,7 +3,7 @@ require 'tilt'
 
 module Sprockets
   class CommonJS < Tilt::Template
-    ASSETS_PATH = File.expand_path('../../../assets', __FILE__)
+    ASSETS_PATH = File.expand_path('../../../assets/javascripts', __FILE__)
     self.default_mime_type = 'application/javascript'
 
     def self.default_namespace
