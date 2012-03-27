@@ -59,24 +59,16 @@
   this.require.cache   = cache;
   return this.require;
 }).call(this);
-(function() {
-  this.require.define({"modules/program": function(exports, require, module){
-    module.exports = function(){
-    alert('Long live the Programs!');
-  };
-  }});
-}).call(this);
-(function() {
-  this.require.define({"modules/user": function(exports, require, module){
-    var Program = require('modules/program');
-  
-  module.exports = function(){
-    alert('Long live the Users');
-    Program();
-  };
-  }});
-}).call(this);
+this.require.define({"modules/program.module":function(exports, require, module){module.exports = function(){
+  alert('Long live the Programs!');
+};
+;}});
+this.require.define({"modules/user.module":function(exports, require, module){var Program = require('modules/program');
 
-
+module.exports = function(){
+  alert('Long live the Users');
+  Program();
+};
+;}});
 
 var self = 'application.js';
