@@ -16,20 +16,21 @@ module Sprockets
     attr_reader :namespace
 
     def evaluate(scope, locals, &block)
-      <<-JS
-(function() {
-  #{namespace}.define({#{scope.logical_path.inspect}: function(exports, require, module){
-    #{indent(data)}
-  }});
-}).call(this);
-      JS
-    end
-
-    private
-      def indent(string)
-        string.gsub(/$(.)/m, "\\1  ").strip
+      if File.extname(scope.logical_path) == '.module'
+        scope.require_asset 'sprockets/commonjs'
+        path = scope.logical_path.inspect
+        code = ''
+        code << "#{namespace}.define({#{path}:"
+        code << 'function(exports, require, module){'
+        code << data
+        code << ";}});\n"
+        code
+      else
+        data
       end
+    end
   end
 
-  register_engine '.module', CommonJS
+  register_postprocessor 'application/javascript', CommonJS
+  append_path File.expand_path('../..', __FILE__)
 end
