@@ -33,6 +33,13 @@ module Sprockets
     end
   end
 
-  register_postprocessor 'application/javascript', CommonJS
-  append_path File.expand_path('../..', __FILE__)
+  # These methods are not available in older versions of Sprockets
+
+  if respond_to?(:register_postprocessor)
+    register_postprocessor 'application/javascript', CommonJS
+  end
+
+  if respond_to?(:append_path)
+    append_path File.expand_path('../..', __FILE__)
+  end
 end
