@@ -16,8 +16,8 @@ module Sprockets
     attr_reader :namespace
 
     def evaluate(scope, locals, &block)
-      if File.extname(scope.logical_path) == '.module'
-        path = scope.logical_path.chomp('.module').inspect
+      if scope.pathname.basename.to_s.include?('.module')
+        path = scope.logical_path.inspect
 
         scope.require_asset 'sprockets/commonjs'
 
@@ -32,14 +32,6 @@ module Sprockets
       end
     end
   end
-
-  # These methods are not available in older versions of Sprockets
-
-  if respond_to?(:register_postprocessor)
-    register_postprocessor 'application/javascript', CommonJS
-  end
-
-  if respond_to?(:append_path)
-    append_path File.expand_path('../..', __FILE__)
-  end
 end
+
+require 'sprockets/engine'
