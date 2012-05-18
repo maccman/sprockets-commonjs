@@ -17,12 +17,14 @@ module Sprockets
 
     def evaluate(scope, locals, &block)
       if File.extname(scope.logical_path) == '.module'
-        path = scope.logical_path.chomp('.module').inspect
+        path = scope.logical_path
+        path = path.gsub(/^\.?\//, '') # Remove relative paths
+        path = path.chomp('.module')   # Remove module ext
 
         scope.require_asset 'sprockets/commonjs'
 
         code = ''
-        code << "#{namespace}.define({#{path}:"
+        code << "#{namespace}.define({#{path.inspect}:"
         code << 'function(exports, require, module){'
         code << data
         code << ";}});\n"
