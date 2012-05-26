@@ -1,9 +1,8 @@
 if defined?(Rails)
   module Sprockets
     class CommonJSEngine < Rails::Engine
-      config.after_initialize do
-        Rails.application.assets.register_postprocessor 'application/javascript', CommonJS
-        Rails.application.assets.append_path File.expand_path('../..', __FILE__)
+      initializer :setup_commonjs do |app|
+        app.assets.register_postprocessor 'application/javascript', CommonJS
       end
     end
   end
