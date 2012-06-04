@@ -36,5 +36,5 @@ module Sprockets
   end
 
   register_postprocessor 'application/javascript', CommonJS
-  append_path File.expand_path('../..', __FILE__)
+  append_path File.expand_path('../../../assets', __FILE__)
 end
