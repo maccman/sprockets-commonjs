@@ -24,13 +24,8 @@ module Sprockets
 
     def evaluate(scope, locals, &block)
       if commonjs_module?(scope)
-        path = scope.logical_path
-        path = path.gsub(/^\.?\//, '') # Remove relative paths
-        path = path.chomp('.module')   # Remove module ext
-
         scope.require_asset 'sprockets/commonjs'
-
-        WRAPPER % [ namespace, path.inspect, data ]
+        WRAPPER % [ namespace, module_name(scope), data ]
       else
         data
       end
@@ -42,6 +37,13 @@ module Sprockets
 
     def commonjs_module?(scope)
       File.extname(scope.logical_path) == '.module'
+    end
+
+    def module_name(scope)
+      scope.logical_path.
+        gsub(/^\.?\//, ''). # Remove relative paths
+        chomp('.module').   # Remove module ext
+        inspect
     end
 
   end
