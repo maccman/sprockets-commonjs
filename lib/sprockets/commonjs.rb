@@ -16,6 +16,8 @@ module Sprockets
     self.default_mime_type = 'application/javascript'
     self.default_namespace = 'this.require'
 
+    protected
+
     def prepare
       @namespace = self.class.default_namespace
     end
