@@ -23,7 +23,7 @@ module Sprockets
     end
 
     def evaluate(scope, locals, &block)
-      if common_js_module?(scope)
+      if commonjs_module?(scope)
         path = scope.logical_path.inspect
         scope.require_asset 'sprockets/commonjs'
         WRAPPER % [ namespace, path, data ]
@@ -36,7 +36,7 @@ module Sprockets
 
     attr_reader :namespace
 
-    def common_js_module?(scope)
+    def commonjs_module?(scope)
       scope.pathname.basename.to_s.include?('.module')
     end
 
