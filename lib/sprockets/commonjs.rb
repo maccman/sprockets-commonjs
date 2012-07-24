@@ -21,7 +21,7 @@ module Sprockets
     end
 
     def evaluate(scope, locals, &block)
-      if File.extname(scope.logical_path) == '.module'
+      if commonjs_module?(scope)
         path = scope.logical_path
         path = path.gsub(/^\.?\//, '') # Remove relative paths
         path = path.chomp('.module')   # Remove module ext
@@ -37,6 +37,10 @@ module Sprockets
     private
 
     attr_reader :namespace
+
+    def commonjs_module?(scope)
+      File.extname(scope.logical_path) == '.module'
+    end
 
   end
 
