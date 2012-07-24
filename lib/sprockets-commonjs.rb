@@ -1,2 +1,2 @@
 require 'sprockets/commonjs'
-require 'sprockets/engine'
+require 'sprockets/commonjs/engine'

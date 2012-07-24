@@ -34,4 +34,4 @@ module Sprockets
   end
 end
 
-require 'sprockets/engine'
+require 'sprockets/commonjs/engine'
