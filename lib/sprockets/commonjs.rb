@@ -9,11 +9,12 @@ module Sprockets
                      '%s' +
                      ";}});\n"
 
-    self.default_mime_type = 'application/javascript'
-
-    def self.default_namespace
-      'this.require'
+    class << self
+      attr_accessor :default_namespace
     end
+
+    self.default_mime_type = 'application/javascript'
+    self.default_namespace = 'this.require'
 
     def prepare
       @namespace = self.class.default_namespace
