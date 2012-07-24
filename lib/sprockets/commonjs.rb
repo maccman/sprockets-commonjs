@@ -3,35 +3,44 @@ require 'tilt'
 
 module Sprockets
   class CommonJS < Tilt::Template
-    self.default_mime_type = 'application/javascript'
 
-    def self.default_namespace
-      'this.require'
+    DEFINE_WRAPPER = '%s.define({%s:' +
+                     'function(exports, require, module){' +
+                     '%s' +
+                     ";}});\n"
+
+    class << self
+      attr_accessor :default_namespace
     end
+
+    self.default_mime_type = 'application/javascript'
+    self.default_namespace = 'this.require'
+
+    protected
 
     def prepare
       @namespace = self.class.default_namespace
     end
 
-    attr_reader :namespace
-
     def evaluate(scope, locals, &block)
-      if scope.pathname.basename.to_s.include?('.module')
+      if commonjs_module?(scope)
         path = scope.logical_path.inspect
-
         scope.require_asset 'sprockets/commonjs'
-
-        code = ''
-        code << "#{namespace}.define({#{path}:"
-        code << 'function(exports, require, module){'
-        code << data
-        code << ";}});\n"
-        code
+        WRAPPER % [ namespace, path, data ]
       else
         data
       end
     end
+
+    private
+
+    attr_reader :namespace
+
+    def commonjs_module?(scope)
+      scope.pathname.basename.to_s.include?('.module')
+    end
+
   end
 end
 
-require 'sprockets/engine'
+require 'sprockets/commonjs/engine'
