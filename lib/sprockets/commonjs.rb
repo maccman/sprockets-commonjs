@@ -3,6 +3,12 @@ require 'tilt'
 
 module Sprockets
   class CommonJS < Tilt::Template
+
+    DEFINE_WRAPPER = '%s.define({%s:' +
+                     'function(exports, require, module){' +
+                     '%s' +
+                     ";}});\n"
+
     self.default_mime_type = 'application/javascript'
 
     def self.default_namespace
@@ -23,12 +29,7 @@ module Sprockets
 
         scope.require_asset 'sprockets/commonjs'
 
-        code = ''
-        code << "#{namespace}.define({#{path.inspect}:"
-        code << 'function(exports, require, module){'
-        code << data
-        code << ";}});\n"
-        code
+        WRAPPER % [ namespace, path.inspect, data ]
       else
         data
       end
