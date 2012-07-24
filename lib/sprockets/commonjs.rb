@@ -20,8 +20,6 @@ module Sprockets
       @namespace = self.class.default_namespace
     end
 
-    attr_reader :namespace
-
     def evaluate(scope, locals, &block)
       if scope.pathname.basename.to_s.include?('.module')
         path = scope.logical_path.inspect
@@ -31,6 +29,11 @@ module Sprockets
         data
       end
     end
+
+    private
+
+    attr_reader :namespace
+
   end
 end
 
