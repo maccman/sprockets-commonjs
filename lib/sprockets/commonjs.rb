@@ -4,10 +4,10 @@ require 'tilt'
 module Sprockets
   class CommonJS < Tilt::Template
 
-    DEFINE_WRAPPER = '%s.define({%s:' +
-                     'function(exports, require, module){' +
-                     '%s' +
-                     ";}});\n"
+    WRAPPER = '%s.define({%s:' +
+              'function(exports, require, module){' +
+              '%s' +
+              ";}});\n"
 
     class << self
       attr_accessor :default_namespace
