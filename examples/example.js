@@ -58,7 +58,7 @@
 
   return this.require;
 }).call(this);
-this.require.define({"modules/program":function(exports, require, module){module.exports = function(){
+this.require.define({"modules/program.cjs":function(exports, require, module){module.exports = function(){
   alert('Long live the Programs!');
 };
 ;}});

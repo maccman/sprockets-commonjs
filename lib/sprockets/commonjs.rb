@@ -4,10 +4,12 @@ require 'tilt'
 module Sprockets
   class CommonJS < Tilt::Template
 
-    DEFINE_WRAPPER = '%s.define({%s:' +
+    WRAPPER = '%s.define({%s:' +
                      'function(exports, require, module){' +
                      '%s' +
                      ";}});\n"
+
+    EXTENSIONS = %w{.module .cjs}
 
     class << self
       attr_accessor :default_namespace
@@ -36,7 +38,7 @@ module Sprockets
     attr_reader :namespace
 
     def commonjs_module?(scope)
-      File.extname(scope.logical_path) == '.module'
+      EXTENSIONS.include?(File.extname(scope.logical_path))
     end
 
     def module_name(scope)
