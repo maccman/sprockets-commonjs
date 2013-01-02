@@ -2,6 +2,7 @@ require 'bundler/gem_tasks'
 require 'sprockets'
 require 'sprockets/commonjs'
 require 'rake/testtask'
+require 'appraisal'
 
 task :example do
   env = Sprockets::Environment.new(File.expand_path('..', __FILE__))
