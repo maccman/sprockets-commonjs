@@ -4,7 +4,7 @@ require 'tilt'
 module Sprockets
   class CommonJS < Tilt::Template
 
-    WRAPPER = '%s.define({%s:' +
+    WRAPPER = '%s.define({"%s":' +
               'function(exports, require, module){' +
               '%s' +
               ";}});\n"
@@ -24,9 +24,8 @@ module Sprockets
 
     def evaluate(scope, locals, &block)
       if commonjs_module?(scope)
-        path = scope.logical_path.inspect
         scope.require_asset 'sprockets/commonjs'
-        WRAPPER % [ namespace, path, data ]
+        WRAPPER % [ namespace, commonjs_module_name(scope), data ]
       else
         data
       end
@@ -38,6 +37,10 @@ module Sprockets
 
     def commonjs_module?(scope)
       scope.pathname.basename.to_s.include?('.module')
+    end
+
+    def commonjs_module_name(scope)
+      scope.logical_path.sub(/\.module$/, '')
     end
 
   end
