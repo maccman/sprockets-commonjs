@@ -3,7 +3,7 @@ $:.push File.expand_path("../lib", __FILE__)
 
 Gem::Specification.new do |s|
   s.name        = "sprockets-commonjs"
-  s.version     = '0.0.4'
+  s.version     = '0.0.5'
   s.authors     = ["Alex MacCaw"]
   s.email       = ["info@eribium.org"]
   s.homepage    = ""
