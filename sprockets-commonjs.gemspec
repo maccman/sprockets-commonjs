@@ -19,6 +19,6 @@ Gem::Specification.new do |s|
 
   # specify any dependencies here; for example:
   # s.add_development_dependency "rspec"
-  s.add_runtime_dependency "sprockets",     "~> 2.1"
+  s.add_runtime_dependency "sprockets",     "~> 2.0"
   s.add_development_dependency 'appraisal', '~> 0.5.1'
 end
