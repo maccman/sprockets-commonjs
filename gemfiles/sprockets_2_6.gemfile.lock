@@ -1,8 +1,8 @@
 PATH
-  remote: /Users/jamesarosen/Projects/sprockets-commonjs
+  remote: /Users/keithmitchell/Desktop/dev/sprockets-commonjs
   specs:
-    sprockets-commonjs (0.0.4)
-      sprockets (~> 2.1)
+    sprockets-commonjs (0.0.5)
+      sprockets (~> 2.0)
 
 GEM
   remote: http://rubygems.org/
