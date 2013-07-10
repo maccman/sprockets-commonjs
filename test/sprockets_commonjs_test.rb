@@ -32,4 +32,8 @@ class SprocketsCommonjsTest < Test::Unit::TestCase
     assert_no_match %r[require.define\(\{\"bar\":function], @output
   end
 
+  def test_has_template_path_method
+    assert_equal Pathname.new(LIB_DIR), Sprockets::CommonJS.template_path
+  end
+
 end

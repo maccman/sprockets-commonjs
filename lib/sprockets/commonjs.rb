@@ -16,6 +16,11 @@ module Sprockets
     self.default_mime_type = 'application/javascript'
     self.default_namespace = 'this.require'
 
+    def self.template_path
+      lib = Pathname.new(File.expand_path('../..', __FILE__))
+      lib.join('assets', 'javascripts')
+    end
+
     protected
 
     def prepare
