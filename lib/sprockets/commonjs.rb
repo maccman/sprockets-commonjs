@@ -45,7 +45,7 @@ module Sprockets
     end
 
     def commonjs_module_name(scope)
-      scope.logical_path.sub(/\.module$/, '')
+      scope.logical_path.chomp('.module')
     end
 
   end
