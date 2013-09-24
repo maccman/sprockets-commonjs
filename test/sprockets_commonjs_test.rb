@@ -20,16 +20,16 @@ class SprocketsCommonjsTest < Test::Unit::TestCase
   end
 
   def test_adds_commonjs_require
-    assert_match %r[var require = function\(name, root\) {], @output
+    assert_match %r[var require = function\(name, root\) \{], @output
   end
 
   def test_modularizes_modules
-    assert_match %r[require.define\({\"foo\":function], @output
+    assert_match %r[require.define\(\{\"foo\":function], @output
     assert_match %r["Foo!"], @output
   end
 
   def test_does_not_modularize_non_modules
-    assert_no_match %r[require.define\({\"bar\":function], @output
+    assert_no_match %r[require.define\(\{\"bar\":function], @output
   end
 
 end
