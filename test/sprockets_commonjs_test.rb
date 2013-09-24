@@ -36,4 +36,12 @@ class SprocketsCommonjsTest < Test::Unit::TestCase
     assert_equal Pathname.new(LIB_DIR), Sprockets::CommonJS.template_path
   end
 
+  def test_default_namespace
+    assert_equal 'this.require', Sprockets::CommonJS.default_namespace
+  end
+
+  def test_default_mime_type
+    assert_equal 'application/javascript', Sprockets::CommonJS.default_mime_type
+  end
+
 end
