@@ -36,9 +36,9 @@ module Sprockets
       end
     end
 
-    private
-
     attr_reader :namespace
+
+    private
 
     def wrap(scope, data)
       WRAPPER % [ namespace, commonjs_module_name(scope), data ]
