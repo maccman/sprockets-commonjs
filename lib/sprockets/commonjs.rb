@@ -13,8 +13,13 @@ module Sprockets
       attr_accessor :default_namespace
     end
 
-    self.default_mime_type = 'application/javascript'
-    self.default_namespace = 'this.require'
+    def self.default_mime_type
+      'application/javascript'
+    end
+
+    def self.default_namespace
+      'this.require'
+    end
 
     def self.template_path
       lib = Pathname.new(File.expand_path('../..', __FILE__))
