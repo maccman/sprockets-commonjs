@@ -3,7 +3,6 @@ require 'tilt'
 
 module Sprockets
   class CommonJS < Tilt::Template
-
     WRAPPER = '%s.define({%s:' +
                      'function(exports, require, module){' +
                      '%s' +
@@ -47,7 +46,6 @@ module Sprockets
         chomp('.module').   # Remove module ext
         inspect
     end
-
   end
 
   register_postprocessor 'application/javascript', CommonJS
