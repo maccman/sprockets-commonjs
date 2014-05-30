@@ -28,6 +28,7 @@ One caveat to the approach this library takes, is that dependencies loaded throu
 ## Usage
 
 1. Add `gem 'sprockets-commonjs'` to your `Gemfile`
-1. Add `.module.js` to any JavaScript files you want as modules, i.e. `users.module.js`
-1. Require all the modules, e.g.: `//= require_tree ./models`
-1. Or, require individual modules, e.g.: `//= require users.module`
+2. Require the commonjs module : `//= require sprockets/commonjs`
+3. Add `.module.js` to any JavaScript files you want as modules, i.e. `users.module.js`
+4. Require all the modules, e.g.: `//= require_tree ./models`
+5. Or, require individual modules, e.g.: `//= require users.module`
