@@ -1,5 +1,5 @@
 (function() {
-  if (!this.require) {
+  if (!<%= Sprockets::CommonJS.default_namespace %>) {
     var modules = {}, cache = {};
 
     var require = function(name, root) {
@@ -43,19 +43,19 @@
       return path.split('/').slice(0, -1).join('/');
     };
 
-    this.require = function(name) {
+    <%= Sprockets::CommonJS.default_namespace %> = function(name) {
       return require(name, '');
     };
 
-    this.require.define = function(bundle) {
+    <%= Sprockets::CommonJS.default_namespace %>.define = function(bundle) {
       for (var key in bundle) {
         modules[key] = bundle[key];
       }
     };
 
-    this.require.modules = modules;
-    this.require.cache   = cache;
+    <%= Sprockets::CommonJS.default_namespace %>.modules = modules;
+    <%= Sprockets::CommonJS.default_namespace %>.cache   = cache;
   }
 
-  return this.require;
+  return <%= Sprockets::CommonJS.default_namespace %>;
 }).call(this);
