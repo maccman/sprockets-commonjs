@@ -1,3 +1,7 @@
+appraise "sprockets-2-0" do
+  gem 'sprockets', '~> 2.0.4'
+end
+
 appraise "sprockets-2-1" do
   gem 'sprockets', '~> 2.1.3'
 end
