@@ -12,4 +12,9 @@ if defined?(Rails)
 
     end
   end
+else
+  module Sprockets
+    register_postprocessor 'application/javascript', CommonJS
+    append_path File.expand_path('../../../assets/javascripts', __FILE__)
+  end
 end

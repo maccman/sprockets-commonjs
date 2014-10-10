@@ -11,7 +11,6 @@ class SprocketsCommonjsTest < Test::Unit::TestCase
 
   def setup
     env = Sprockets::Environment.new
-    env.register_postprocessor 'application/javascript', Sprockets::CommonJS
     env.append_path TEST_DIR
     env.append_path LIB_DIR
     outfile = Tempfile.new('sprockets-output')
