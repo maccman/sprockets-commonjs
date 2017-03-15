@@ -15,41 +15,52 @@ module Sprockets
 
     self.default_namespace = 'this.require'
 
-    def initialize(filename, &block)
-      @filename = filename
-      @source   = block.call
+    def self.instance
+      @instance ||= new
     end
 
-    def render(context, empty_hash_wtf)
-      self.class.run(@filename, @source, context)
+    def self.call(input)
+      instance.call(input)
     end
 
-    def self.run(filename, source, context)
-      if commonjs_module?(filename)
-        context.require_asset 'sprockets/commonjs'
+    def call(input)
+      name   = input[:name]
+      source = input[:data]
 
-        WRAPPER % [ default_namespace, module_name(filename), source ]
+      if commonjs_module?(name)
+        required  = Set.new(input[:metadata][:required])
+        required << add_required(input)
+
+        {
+          data: wrap(name, source),
+          required: required
+        }
+
       else
         source
       end
     end
 
-    def self.call(input)
-      name    = input[:name]
-      source  = input[:data]
-      context = input[:environment].context_class.new(input)
-
-      result = run(name, source, context)
-      context.metadata.merge(data: result)
-    end
-
     protected
 
-    def self.commonjs_module?(filename)
+    def wrap(name, source)
+      WRAPPER % [ namespace, module_name(name), source ]
+    end
+
+    def add_required(input)
+      path = input[:environment].resolve("sprockets/commonjs.js")
+      'file://%s?type=application/javascript' % path
+    end
+
+    def namespace
+      self.class.default_namespace
+    end
+
+    def commonjs_module?(filename)
       EXTENSIONS.include?(File.extname(filename))
     end
 
-    def self.module_name(path)
+    def module_name(path)
       path.gsub(/^\.?\//, '') # Remove relative paths
           .chomp('.module')   # Remove module ext
           .inspect
