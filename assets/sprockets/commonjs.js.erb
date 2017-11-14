@@ -1,5 +1,6 @@
+<% namespace = Sprockets::CommonJS.default_namespace %>
 (function() {
-  if (!this.require) {
+  if (!<%= namespace %>) {
     var modules = {}, cache = {};
 
     var require = function(name, root) {
@@ -42,19 +43,19 @@
       return path.split('/').slice(0, -1).join('/');
     };
 
-    this.require = function(name) {
+    <%= namespace %> = function(name) {
       return require(name, '');
     };
 
-    this.require.define = function(bundle) {
+    <%= namespace %>.define = function(bundle) {
       for (var key in bundle) {
         modules[key] = bundle[key];
       }
     };
 
-    this.require.modules = modules;
-    this.require.cache   = cache;
+    <%= namespace %>.modules = modules;
+    <%= namespace %>.cache   = cache;
   }
 
-  return this.require;
+  return <%= namespace %>;
 }).call(this);
