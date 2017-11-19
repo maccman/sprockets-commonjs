@@ -5,7 +5,7 @@ module Sprockets
     WRAPPER = '%s.define({%s:' +
                      'function(exports, require, module){' +
                      '%s' +
-                     ";}});\n"
+                     "\n}});\n"
 
     EXTENSIONS = %w{.module .cjs}
 
